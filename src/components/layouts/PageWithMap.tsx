@@ -9,11 +9,12 @@ export function PageWithMap({ ...props }: PageWithMapProps) {
       {...props}
       className={`${props.className} relative flex flex-col h-full justify-end`}
     >
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0">
         <Map />
       </div>
-
-      <Outlet />
+      <div className="z-10 w-full">
+        <Outlet />
+      </div>
     </div>
   );
 }
