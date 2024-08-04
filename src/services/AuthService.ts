@@ -23,7 +23,8 @@ export class AuthService extends ApiService {
   static async signIn(payload: AuthLoginPayload): Promise<AuthSession> {
     const { token } = await ApiService.post(
       `${AuthService.PATH}/signin`,
-      payload
+      payload,
+      { headers: { Authorization: undefined! } }
     );
     localStorage.setItem(AUTH_TOKEN_NAME, token);
     return { token };
@@ -36,7 +37,8 @@ export class AuthService extends ApiService {
   static async signUp(payload: AuthSignUpPayload): Promise<AuthSession> {
     const { token } = await ApiService.post(
       `${AuthService.PATH}/signup`,
-      payload
+      payload,
+      { headers: { Authorization: undefined! } }
     );
     return { token };
   }
