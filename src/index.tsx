@@ -26,6 +26,15 @@ const MultiraoSolidarioApp = () => {
       errorElement: <AuthErrorBoundary />,
       children: [
         {
+          path: ROUTES.home,
+          element: <HomePage />,
+          loader: () =>
+            EventService.list({
+              latitude: latitude ?? 0,
+              longitude: longitude ?? 0,
+            }),
+        },
+        {
           path: ROUTES.signUp,
           element: <SignUpPage.Component />,
           errorElement: <SignUpPage.Component />,
@@ -48,7 +57,11 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-root.render(<MultiraoSolidarioApp />);
+root.render(
+  <LocationProvider>
+    <MultiraoSolidarioApp />
+  </LocationProvider>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
