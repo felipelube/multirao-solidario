@@ -24,6 +24,12 @@ const MultiraoSolidarioApp = () => {
       path: ROUTES.home,
       element: <PageWithMap />,
       errorElement: <AuthErrorBoundary />,
+      loader: () =>
+        EventService.getPublicEvents({
+          ...(latitude && longitude
+            ? { latitude: latitude, longitude: longitude }
+            : {}),
+        }),
       children: [
         {
           path: ROUTES.home,
