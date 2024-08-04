@@ -74,13 +74,13 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <LocationProvider>
-    <AuthProvider>
-      <MapProvider>
+  <MapProvider>
+    <LocationProvider>
+      <AuthProvider>
         <MutiraoSolidarioApp />
-      </MapProvider>
-    </AuthProvider>
-  </LocationProvider>
+      </AuthProvider>
+    </LocationProvider>
+  </MapProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

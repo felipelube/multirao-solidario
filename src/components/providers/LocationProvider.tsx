@@ -5,6 +5,7 @@ import React, {
   useContext,
   ReactNode,
 } from "react";
+import { useMapContext } from "./MapProvider";
 
 interface LocationContextType {
   latitude: number | null;
@@ -24,6 +25,8 @@ const LocationProvider: React.FC<LocationProviderProps> = ({ children }) => {
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
 
+  const { setCenter } = useMapContext();
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -37,6 +40,12 @@ const LocationProvider: React.FC<LocationProviderProps> = ({ children }) => {
       );
     }
   }, []);
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      setCenter([latitude, longitude]);
+    }
+  }, [latitude, longitude, setCenter]);
 
   const updateLocation = (lat: number, long: number) => {
     setLatitude(lat);

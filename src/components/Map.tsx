@@ -2,11 +2,11 @@ import {
   MapContainer,
   TileLayer,
   Marker,
-  useMap,
   MapContainerProps,
 } from "react-leaflet";
 import { Event } from "../services/EventsService";
 import { useMapContext } from "./providers/MapProvider";
+import { LONDON } from "../config/map";
 
 type MapProps = {
   events: Event[];
@@ -21,7 +21,7 @@ export function Map({ events, mapProps, ...props }: MapProps) {
       <MapContainer
         {...mapProps}
         key={center?.join(",")}
-        center={center}
+        center={center ?? LONDON}
         zoom={15}
         scrollWheelZoom={false}
         style={{ height: "100%", width: "100%" }}
