@@ -4,7 +4,7 @@ type MapProps = {} & React.HTMLAttributes<HTMLDivElement>;
 
 export function Map({ ...props }: MapProps) {
   return (
-    <div {...props} className={`${props.className} h-full w-full`} id="map">
+    <div {...props} className={`${props.className} h-screen w-screen`} id="map">
       <MapContainer
         center={[-22.794574, -43.109953]}
         zoom={10.5}
