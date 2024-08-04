@@ -22,7 +22,7 @@ export class AuthService extends ApiService {
 
   static async signIn(payload: AuthLoginPayload): Promise<AuthSession> {
     const { token } = await ApiService.post(
-      `${AuthService.PATH}/login`,
+      `${AuthService.PATH}/signin`,
       payload
     );
     localStorage.setItem(AUTH_TOKEN_NAME, token);

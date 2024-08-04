@@ -1,6 +1,7 @@
 import {
   ActionFunctionArgs,
   Form,
+  Navigate,
   useActionData,
   useRouteError,
 } from "react-router-dom";
@@ -9,7 +10,7 @@ import { Input } from "../Input";
 import { Button } from "../Button";
 import { ApiError } from "../../services/ApiService";
 import { AuthService, AuthSession } from "../../services/AuthService";
-import CheckCircle from "../icons/CheckCircle";
+import { ROUTES } from "../../config/routes";
 
 type SignInPageProps = {} & React.HTMLAttributes<HTMLDivElement>;
 
@@ -19,21 +20,12 @@ export function Component({ ...props }: SignInPageProps) {
 
   return token ? (
     <PageContent>
-      <h1 className="text-3xl font-bold text-center">Registro concluído</h1>
-      <CheckCircle className="text-green-500 w-24 mx-auto" />
-      <Button
-        onClick={() => {
-          window.location.href = "/login";
-        }}
-        className="w-full"
-      >
-        Entrar
-      </Button>
+      <Navigate to={ROUTES.home} />
     </PageContent>
   ) : (
-    <Form action="/register" method="post" className="flex flex-col gap-4">
+    <Form action={ROUTES.signIn} method="post" className="flex flex-col gap-4">
       <PageContent {...props}>
-        <h1 className="text-3xl font-bold text-center">Registre sua conta</h1>
+        <h1 className="text-3xl font-bold text-center">Entrar</h1>
         {Array.isArray(apiError?.errors) && (
           <div className="bg-red-100 border-red-500 p-4 rounded-lg">
             {apiError.errors.map(({ detail }, index) => (
@@ -43,27 +35,11 @@ export function Component({ ...props }: SignInPageProps) {
         )}
 
         <Input
-          label="Nome"
-          type="text"
-          name="name"
-          className="p-2 border rounded-lg"
-          required
-        />
-
-        <Input
           label="E-mail"
           type="email"
           name="email"
           className="p-2 border rounded-lg"
           required
-        />
-
-        <Input
-          label="Telefone"
-          type="tel"
-          name="phoneNumber"
-          required
-          className="p-2 border rounded-lg"
         />
 
         <Input
@@ -76,7 +52,7 @@ export function Component({ ...props }: SignInPageProps) {
           title="5 caracteres no mínimo"
         />
 
-        <Button type="submit">Crie sua conta</Button>
+        <Button type="submit">Entrar</Button>
       </PageContent>
     </Form>
   );
@@ -84,12 +60,10 @@ export function Component({ ...props }: SignInPageProps) {
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const newUser = AuthService.signUp({
-    name: formData.get("name") as string,
+  const login = AuthService.signIn({
     email: formData.get("email") as string,
     password: formData.get("password") as string,
-    phoneNumber: formData.get("phoneNumber") as string,
   });
 
-  return newUser;
+  return login;
 }

@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PageWithMap } from "./components/layouts/PageWithMap";
 import { HomePage } from "./components/pages/Homepage";
 import * as SignUpPage from "./components/pages/SignUp";
+import * as SignInPage from "./components/pages/SignIn";
+
 import { ROUTES } from "./config/routes";
 
 const router = createBrowserRouter([
@@ -22,6 +24,12 @@ const router = createBrowserRouter([
         element: <SignUpPage.Component />,
         errorElement: <SignUpPage.Component />,
         action: SignUpPage.action,
+      },
+      {
+        path: ROUTES.signIn,
+        element: <SignInPage.Component />,
+        errorElement: <SignInPage.Component />,
+        action: SignInPage.action,
       },
     ],
   },
