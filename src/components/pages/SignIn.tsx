@@ -27,7 +27,7 @@ export function Component({ ...props }: SignInPageProps) {
     }
   }, [token, login]);
 
-  return isSignedIn ? (
+  return token ? (
     <PageContent>
       <Navigate to={ROUTES.home} />
     </PageContent>

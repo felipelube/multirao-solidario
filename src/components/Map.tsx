@@ -6,6 +6,7 @@ import {
   MapContainerProps,
 } from "react-leaflet";
 import { Event } from "../services/EventsService";
+import { useMapContext } from "./providers/MapProvider";
 
 type MapProps = {
   events: Event[];
@@ -13,17 +14,14 @@ type MapProps = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export function Map({ events, mapProps, ...props }: MapProps) {
-  const [firstEvent] = events ?? [];
+  const { center } = useMapContext();
 
   return (
     <div {...props} className={`${props.className} h-screen w-screen`} id="map">
       <MapContainer
         {...mapProps}
-        center={
-          mapProps?.center ?? firstEvent
-            ? [firstEvent.latitude, firstEvent.longitude]
-            : [-22.794574, -43.109953]
-        }
+        key={center?.join(",")}
+        center={center}
         zoom={15}
         scrollWheelZoom={false}
         style={{ height: "100%", width: "100%" }}
