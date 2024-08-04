@@ -8,7 +8,7 @@ import React, {
 import { AUTH_TOKEN_NAME } from "../../config/auth";
 
 interface AuthContextType {
-  isSignedIn: boolean;
+  isSignedIn: boolean | null;
   userInfo: UserInfo | null;
   login: (token: string) => void;
   logout: () => void;
@@ -28,16 +28,15 @@ type UserInfo = {
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [authToken, setAuthToken] = useState<string | null>(null);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  const isSignedIn = !!authToken;
+  const [isSignedIn, setSignedIn] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem(AUTH_TOKEN_NAME);
-    if (token) {
-      setAuthToken(token);
-    }
+    const token = localStorage.getItem(AUTH_TOKEN_NAME) ?? null;
+    setAuthToken(token);
   }, [setAuthToken, setUserInfo]);
 
   useEffect(() => {
+    setSignedIn(authToken === null ? null : !!authToken);
     try {
       return setUserInfo(
         JSON.parse(atob((authToken ?? "").split(".")[1])) as UserInfo
