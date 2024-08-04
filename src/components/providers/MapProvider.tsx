@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface MapContextProps {
-  center: [number, number] | undefined;
-  setCenter: (center: [number, number] | undefined) => void;
+  center: [number, number];
+  setCenter: (center: [number, number]) => void;
 }
 
 const MapContext = createContext<MapContextProps | undefined>(undefined);
@@ -12,7 +12,7 @@ interface MapProviderProps {
 }
 
 export const MapProvider: React.FC<MapProviderProps> = ({ children }) => {
-  const [center, setCenter] = useState<[number, number] | undefined>(undefined);
+  const [center, setCenter] = useState<[number, number]>([51.505, -0.09]); // Default center
 
   return (
     <MapContext.Provider value={{ center, setCenter }}>
