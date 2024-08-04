@@ -11,14 +11,23 @@ import { Button } from "../Button";
 import { ApiError } from "../../services/ApiService";
 import { AuthService, AuthSession } from "../../services/AuthService";
 import { ROUTES } from "../../config/routes";
+import { useAuth } from "../providers/AuthProvider";
+import { useEffect } from "react";
 
 type SignInPageProps = {} & React.HTMLAttributes<HTMLDivElement>;
 
 export function Component({ ...props }: SignInPageProps) {
   const apiError = useRouteError() as ApiError;
   const { token } = (useActionData() as AuthSession) ?? {};
+  const { login, isLoggedIn } = useAuth();
 
-  return token ? (
+  useEffect(() => {
+    if (token) {
+      login(token);
+    }
+  }, [token, login]);
+
+  return isLoggedIn ? (
     <PageContent>
       <Navigate to={ROUTES.home} />
     </PageContent>

@@ -21,25 +21,14 @@ export class AuthService extends ApiService {
   static PATH = "/user";
 
   static async signIn(payload: AuthLoginPayload): Promise<AuthSession> {
-    const { token } = await ApiService.post(
-      `${AuthService.PATH}/signin`,
-      payload,
-      { headers: { Authorization: undefined! } }
-    );
-    localStorage.setItem(AUTH_TOKEN_NAME, token);
-    return { token };
-  }
-
-  static async signOut(): Promise<void> {
-    window.localStorage.removeItem(AUTH_TOKEN_NAME);
+    return ApiService.post(`${AuthService.PATH}/signin`, payload, {
+      headers: { Authorization: undefined! },
+    });
   }
 
   static async signUp(payload: AuthSignUpPayload): Promise<AuthSession> {
-    const { token } = await ApiService.post(
-      `${AuthService.PATH}/signup`,
-      payload,
-      { headers: { Authorization: undefined! } }
-    );
-    return { token };
+    return await ApiService.post(`${AuthService.PATH}/signup`, payload, {
+      headers: { Authorization: undefined! },
+    });
   }
 }

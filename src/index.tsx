@@ -15,6 +15,7 @@ import {
 } from "./components/providers/LocationProvider";
 import { EventService } from "./services/EventsService";
 import AuthErrorBoundary from "./components/AuthErrorBoundary";
+import { AuthProvider } from "./components/providers/AuthProvider";
 
 const MultiraoSolidarioApp = () => {
   const { latitude, longitude } = useLocation() ?? {};
@@ -35,9 +36,10 @@ const MultiraoSolidarioApp = () => {
           path: ROUTES.home,
           element: <HomePage />,
           loader: () =>
-            EventService.list({
-              latitude: latitude ?? 0,
-              longitude: longitude ?? 0,
+            EventService.getEvents({
+              ...(latitude && longitude
+                ? { latitude: latitude, longitude: longitude }
+                : {}),
             }),
         },
         {
@@ -65,7 +67,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <LocationProvider>
-    <MultiraoSolidarioApp />
+    <AuthProvider>
+      <MultiraoSolidarioApp />
+    </AuthProvider>
   </LocationProvider>
 );
 
