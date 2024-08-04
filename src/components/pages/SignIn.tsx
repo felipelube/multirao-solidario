@@ -19,7 +19,7 @@ type SignInPageProps = {} & React.HTMLAttributes<HTMLDivElement>;
 export function Component({ ...props }: SignInPageProps) {
   const apiError = useRouteError() as ApiError;
   const { token } = (useActionData() as AuthSession) ?? {};
-  const { login, isLoggedIn } = useAuth();
+  const { login, isSignedIn } = useAuth();
 
   useEffect(() => {
     if (token) {
@@ -27,7 +27,7 @@ export function Component({ ...props }: SignInPageProps) {
     }
   }, [token, login]);
 
-  return isLoggedIn ? (
+  return isSignedIn ? (
     <PageContent>
       <Navigate to={ROUTES.home} />
     </PageContent>
