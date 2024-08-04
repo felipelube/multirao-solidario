@@ -60,11 +60,17 @@ export class EventService extends ApiService {
     return ApiService.get(`${EventService.PATH}?${queryString}`);
   }
 
-  static async create(event: Omit<Event, "id">): Promise<void> {
+  static async getEvent(eventId: number): Promise<Event[]> {
+    return ApiService.get(
+      EventService.PATH_FOR_ID.replace(":id", eventId.toString())
+    );
+  }
+
+  static async createEvent(event: Omit<Event, "id">): Promise<void> {
     return ApiService.post(EventService.PATH, event);
   }
 
-  static async update(
+  static async updateEvent(
     eventId: string,
     event: Omit<Event, "id">
   ): Promise<void> {
@@ -74,7 +80,9 @@ export class EventService extends ApiService {
     );
   }
 
-  static async delete(eventId: string): Promise<string> {
-    return ApiService.delete(EventService.PATH_FOR_ID.replace(":id", eventId));
+  static async deleteEvent(eventId: number): Promise<string> {
+    return ApiService.delete(
+      EventService.PATH_FOR_ID.replace(":id", eventId.toString())
+    );
   }
 }

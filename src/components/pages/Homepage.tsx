@@ -11,7 +11,7 @@ export function HomePage({ ...props }: HomePageProps) {
 
   return (
     <PageContent>
-      <h2 className="text-lg font-medium font-titles">Eventos próximos</h2>
+      <h1 className="text-lg font-medium font-titles">Eventos próximos</h1>
       <EventListing events={events} />
     </PageContent>
   );
