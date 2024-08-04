@@ -32,8 +32,8 @@ const request = async (
     method: method ?? "GET",
     headers: {
       ...(isMultiPartFormData ? {} : { "Content-Type": "application/json" }),
-      ...options?.headers,
       Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_NAME) ?? ""}`,
+      ...options?.headers,
     },
   });
 

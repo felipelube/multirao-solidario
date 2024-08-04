@@ -17,7 +17,7 @@ import { EventService } from "./services/EventsService";
 import AuthErrorBoundary from "./components/AuthErrorBoundary";
 import { AuthProvider } from "./components/providers/AuthProvider";
 
-const MultiraoSolidarioApp = () => {
+const MutiraoSolidarioApp = () => {
   const { latitude, longitude } = useLocation() ?? {};
 
   const router = createBrowserRouter([
@@ -68,7 +68,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <LocationProvider>
     <AuthProvider>
-      <MultiraoSolidarioApp />
+      <MutiraoSolidarioApp />
     </AuthProvider>
   </LocationProvider>
 );
