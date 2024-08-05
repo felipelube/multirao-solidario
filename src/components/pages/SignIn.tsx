@@ -13,6 +13,7 @@ import { AuthService, AuthSession } from "../../services/AuthService";
 import { ROUTES } from "../../config/routes";
 import { useAuth } from "../providers/AuthProvider";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 type SignInPageProps = {} & React.HTMLAttributes<HTMLDivElement>;
 
@@ -27,43 +28,54 @@ export function Component({ ...props }: SignInPageProps) {
     }
   }, [token, login]);
 
-  return token ? (
-    <PageContent>
-      <Navigate to={ROUTES.home} />
-    </PageContent>
-  ) : (
-    <Form action={ROUTES.signIn} method="post" className="flex flex-col gap-4">
-      <PageContent {...props}>
-        <h1 className="text-3xl font-bold text-center">Entrar</h1>
-        {Array.isArray(apiError?.errors) && (
-          <div className="bg-red-100 border-red-500 p-4 rounded-lg">
-            {apiError.errors.map(({ detail }, index) => (
-              <p key={index}>{detail}</p>
-            ))}
-          </div>
-        )}
+  return (
+    <>
+      <Helmet>
+        <title>Mutirão solidário - Entrar</title>
+      </Helmet>
+      {token ? (
+        <PageContent>
+          <Navigate to={ROUTES.home} />
+        </PageContent>
+      ) : (
+        <Form
+          action={ROUTES.signIn}
+          method="post"
+          className="flex flex-col gap-4"
+        >
+          <PageContent {...props}>
+            <h1 className="text-3xl font-bold text-center">Entrar</h1>
+            {Array.isArray(apiError?.errors) && (
+              <div className="p-4 bg-red-100 border-red-500 rounded-lg">
+                {apiError.errors.map(({ detail }, index) => (
+                  <p key={index}>{detail}</p>
+                ))}
+              </div>
+            )}
 
-        <Input
-          label="E-mail"
-          type="email"
-          name="email"
-          className="p-2 border rounded-lg"
-          required
-        />
+            <Input
+              label="E-mail"
+              type="email"
+              name="email"
+              className="p-2 border rounded-lg"
+              required
+            />
 
-        <Input
-          label="Senha"
-          type="password"
-          name="password"
-          className="p-2 border rounded-lg"
-          required
-          pattern=".{5,}"
-          title="5 caracteres no mínimo"
-        />
+            <Input
+              label="Senha"
+              type="password"
+              name="password"
+              className="p-2 border rounded-lg"
+              required
+              pattern=".{5,}"
+              title="5 caracteres no mínimo"
+            />
 
-        <Button type="submit">Entrar</Button>
-      </PageContent>
-    </Form>
+            <Button type="submit">Entrar</Button>
+          </PageContent>
+        </Form>
+      )}
+    </>
   );
 }
 

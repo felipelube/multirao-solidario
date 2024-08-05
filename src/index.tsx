@@ -7,6 +7,7 @@ import { PageWithMap } from "./components/layouts/PageWithMap";
 import { HomePage } from "./components/pages/Homepage";
 import * as SignUpPage from "./components/pages/SignUp";
 import * as SignInPage from "./components/pages/SignIn";
+import { Helmet } from "react-helmet";
 
 import { ROUTES } from "./config/routes";
 import {
@@ -85,6 +86,9 @@ root.render(
   <LocationProvider>
     <AuthProvider>
       <MapProvider>
+        <Helmet>
+          <title>Mutirão Solidário</title>
+        </Helmet>
         <MutiraoSolidarioApp />
       </MapProvider>
     </AuthProvider>

@@ -9,6 +9,7 @@ import {
   RegistrationService,
 } from "../../services/RegistrationService";
 import { useAuth } from "../providers/AuthProvider";
+import { Helmet } from "react-helmet";
 
 type HomePageProps = {} & React.HTMLAttributes<HTMLDivElement>;
 
@@ -62,6 +63,9 @@ export function EventPage({ ...props }: HomePageProps) {
 
   return (
     <PageContent>
+      <Helmet>
+        <title>Mutirão solidário - {event.title}</title>
+      </Helmet>
       <h1 className="text-lg font-medium font-titles">{event.title}</h1>
       {!isNaN(+eventDate) && (
         <p className="text-xs text-gray-500">
