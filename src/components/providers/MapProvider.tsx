@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
+import { LOCATIONS_IN_BRAZIL } from "../../config/map";
 
 interface MapContextProps {
   center: [number, number];
@@ -11,8 +12,15 @@ interface MapProviderProps {
   children: ReactNode;
 }
 
+function pickRandom(items: any[]) {
+  const randomIndex = Math.floor(Math.random() * items.length);
+  return items[randomIndex];
+}
+
 export const MapProvider: React.FC<MapProviderProps> = ({ children }) => {
-  const [center, setCenter] = useState<[number, number]>([51.505, -0.09]); // Default center
+  const [center, setCenter] = useState<[number, number]>(
+    pickRandom(LOCATIONS_IN_BRAZIL)
+  );
 
   return (
     <MapContext.Provider value={{ center, setCenter }}>
