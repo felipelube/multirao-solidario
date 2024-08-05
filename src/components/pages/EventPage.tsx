@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useRevalidator } from "react-router-dom";
 import { Event } from "../../services/EventsService";
 import { PageContent } from "../PageContainer";
 import { useUIState } from "../providers/MapProvider";
@@ -44,6 +44,7 @@ export function EventPage({ ...props }: HomePageProps) {
         userId: userInfo!.id!,
         eventId: event.id,
       });
+      window.location.reload();
     } finally {
       setIsMutating(false);
     }
@@ -58,6 +59,7 @@ export function EventPage({ ...props }: HomePageProps) {
     try {
       // FIXME: cors error
       //await RegistrationService.deleteRegistration(existingRegistration.id);
+      window.location.reload();
     } finally {
       setIsMutating(false);
     }
