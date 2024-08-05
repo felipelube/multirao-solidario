@@ -1,4 +1,3 @@
-import { AUTH_TOKEN_NAME } from "../config/auth";
 import { ApiService } from "./ApiService";
 
 export type AuthSession = {

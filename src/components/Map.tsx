@@ -2,7 +2,6 @@ import {
   MapContainer,
   TileLayer,
   Marker,
-  useMap,
   MapContainerProps,
   ZoomControl,
 } from "react-leaflet";

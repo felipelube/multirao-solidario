@@ -20,7 +20,7 @@ type SignInPageProps = {} & React.HTMLAttributes<HTMLDivElement>;
 export function Component({ ...props }: SignInPageProps) {
   const apiError = useRouteError() as ApiError;
   const { token } = (useActionData() as AuthSession) ?? {};
-  const { login, isSignedIn } = useAuth();
+  const { login } = useAuth();
 
   useEffect(() => {
     if (token) {

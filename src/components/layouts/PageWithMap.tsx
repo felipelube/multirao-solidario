@@ -1,7 +1,6 @@
 import { Outlet, useLoaderData } from "react-router-dom";
 import { Map } from "../Map";
 import { Event } from "../../services/EventsService";
-import { MapProvider } from "../providers/MapProvider";
 
 type PageWithMapProps = {} & React.HTMLAttributes<HTMLDivElement>;
 

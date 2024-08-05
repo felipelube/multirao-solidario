@@ -1,6 +1,6 @@
 import React from "react";
 import { Event } from "../services/EventsService";
-import { Link, replace } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ROUTES } from "../config/routes";
 import { EventItem } from "./EventItem";
 import { useAuth } from "./providers/AuthProvider";
@@ -34,7 +34,7 @@ export function EventListing({ events, ...props }: EventListingProps) {
         </div>
       )}
       {!isSignedIn && (
-        <div className="flex flex-col gap-2 items-center text-center bg-gradient-to-b from-white to-transparent pt-16 -mt-12 -top-12 relative">
+        <div className="relative flex flex-col items-center gap-2 pt-16 -mt-12 text-center bg-gradient-to-b from-white to-transparent -top-12">
           <h3 className="text-lg">
             Mutirão Solidário é um app para organizar esforços de voluntários
           </h3>
