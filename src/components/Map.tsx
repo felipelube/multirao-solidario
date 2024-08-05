@@ -8,6 +8,8 @@ import {
 import { Event } from "../services/EventsService";
 import { useMapContext } from "./providers/MapProvider";
 import { Icon } from "leaflet";
+import { ROUTES } from "../config/routes";
+import { useRoutes } from "react-router-dom";
 
 type MapProps = {
   events: Event[];
@@ -48,6 +50,21 @@ export function Map({ events, mapProps, ...props }: MapProps) {
                 icon={eventIcon}
                 position={[latitude, longitude]}
                 key={id}
+                interactive={true}
+                eventHandlers={{
+                  click: (e) => {
+                    if (
+                      ROUTES.event.replace(":id", id.toString()) ===
+                      window.location.pathname
+                    ) {
+                      return;
+                    }
+
+                    window.location.assign(
+                      ROUTES.event.replace(":id", id.toString())
+                    );
+                  },
+                }}
               ></Marker>
             );
           })}
