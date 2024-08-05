@@ -4,6 +4,7 @@ import {
   Marker,
   useMap,
   MapContainerProps,
+  ZoomControl,
 } from "react-leaflet";
 import { Event } from "../services/EventsService";
 import { useMapContext } from "./providers/MapProvider";
@@ -33,11 +34,14 @@ export function Map({ events, mapProps, ...props }: MapProps) {
         zoom={15}
         scrollWheelZoom={false}
         style={{ height: "100%", width: "100%" }}
+        zoomControl={false}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <ZoomControl position="topright" />
+
         {Array.isArray(events) &&
           events.map(({ latitude, longitude, id }) => {
             return (
