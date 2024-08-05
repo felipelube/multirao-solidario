@@ -18,6 +18,7 @@ import AuthErrorBoundary from "./components/AuthErrorBoundary";
 import { AuthProvider } from "./components/providers/AuthProvider";
 import { EventPage } from "./components/pages/EventPage";
 import { MapProvider } from "./components/providers/MapProvider";
+import { RegistrationService } from "./services/RegistrationService";
 
 const MutiraoSolidarioApp = () => {
   const { latitude, longitude } = useLocation() ?? {};
@@ -47,7 +48,14 @@ const MutiraoSolidarioApp = () => {
         {
           path: ROUTES.event,
           element: <EventPage />,
-          loader: ({ params }) => EventService.getEvent(+params.id!),
+          loader: async ({ params }) => {
+            const [event, registrations] = await Promise.all([
+              EventService.getEvent(+params.id!),
+              RegistrationService.getRegistrationsByEventId(+params.id!),
+            ]);
+
+            return { event, registrations };
+          },
           id: "event",
         },
         {
