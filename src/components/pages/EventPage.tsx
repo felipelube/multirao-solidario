@@ -10,6 +10,8 @@ import {
 } from "../../services/RegistrationService";
 import { useAuth } from "../providers/AuthProvider";
 import { Helmet } from "react-helmet";
+import ArrowLeft from "../icons/ArrowLeft";
+import { ROUTES } from "../../config/routes";
 
 type HomePageProps = {} & React.HTMLAttributes<HTMLDivElement>;
 
@@ -66,7 +68,12 @@ export function EventPage({ ...props }: HomePageProps) {
       <Helmet>
         <title>Mutirão solidário - {event.title}</title>
       </Helmet>
-      <h1 className="text-lg font-medium font-titles">{event.title}</h1>
+      <div className="flex gap-4">
+        <button onClick={() => window.location.assign(ROUTES.home)}>
+          <ArrowLeft className="w-4 h-4" />
+        </button>
+        <h1 className="text-lg font-medium font-titles">{event.title}</h1>
+      </div>
       {!isNaN(+eventDate) && (
         <p className="text-xs text-gray-500">
           {eventDate.toLocaleDateString()}
