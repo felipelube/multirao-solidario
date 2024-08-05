@@ -29,6 +29,7 @@ export type Event = {
   currentVolunteers: number;
   status: EventStatus;
   date: string;
+  radius: number;
 };
 
 type EventFilters = Partial<

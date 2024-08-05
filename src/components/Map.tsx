@@ -7,11 +7,19 @@ import {
 } from "react-leaflet";
 import { Event } from "../services/EventsService";
 import { useMapContext } from "./providers/MapProvider";
+import { Icon } from "leaflet";
 
 type MapProps = {
   events: Event[];
   mapProps?: MapContainerProps;
 } & React.HTMLAttributes<HTMLDivElement>;
+
+const eventIcon = new Icon({
+  iconUrl: "/marker.png",
+  iconSize: [185, 185],
+  iconAnchor: [92.5, 92.5],
+  popupAnchor: [0, 0],
+});
 
 export function Map({ events, mapProps, ...props }: MapProps) {
   const { center } = useMapContext();
@@ -32,7 +40,13 @@ export function Map({ events, mapProps, ...props }: MapProps) {
         />
         {Array.isArray(events) &&
           events.map(({ latitude, longitude, id }) => {
-            return <Marker position={[latitude, longitude]} key={id}></Marker>;
+            return (
+              <Marker
+                icon={eventIcon}
+                position={[latitude, longitude]}
+                key={id}
+              ></Marker>
+            );
           })}
       </MapContainer>
     </div>
