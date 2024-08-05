@@ -1,14 +1,16 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { LOCATIONS_IN_BRAZIL } from "../../config/map";
 
-interface MapContextProps {
-  center: [number, number];
-  setCenter: (center: [number, number]) => void;
+interface UIStateProps {
+  mapCenter: [number, number];
+  setMapCenter: (mapCenter: [number, number]) => void;
+  collapsedContent: boolean;
+  setCollapsedContent: (collapsedContent: boolean) => void;
 }
 
-const MapContext = createContext<MapContextProps | undefined>(undefined);
+const UIState = createContext<UIStateProps | undefined>(undefined);
 
-interface MapProviderProps {
+interface UIStateProviderProps {
   children: ReactNode;
 }
 
@@ -17,22 +19,27 @@ function pickRandom(items: any[]) {
   return items[randomIndex];
 }
 
-export const MapProvider: React.FC<MapProviderProps> = ({ children }) => {
-  const [center, setCenter] = useState<[number, number]>(
+export const UIStateProvider: React.FC<UIStateProviderProps> = ({
+  children,
+}) => {
+  const [mapCenter, setMapCenter] = useState<[number, number]>(
     pickRandom(LOCATIONS_IN_BRAZIL)
   );
+  const [collapsedContent, setCollapsedContent] = useState(false);
 
   return (
-    <MapContext.Provider value={{ center, setCenter }}>
+    <UIState.Provider
+      value={{ mapCenter, setMapCenter, setCollapsedContent, collapsedContent }}
+    >
       {children}
-    </MapContext.Provider>
+    </UIState.Provider>
   );
 };
 
-export const useMapContext = (): MapContextProps => {
-  const context = useContext(MapContext);
+export const useUIState = (): UIStateProps => {
+  const context = useContext(UIState);
   if (!context) {
-    throw new Error("useMapContext must be used within a MapProvider");
+    throw new Error("useUIState must be used within a UIStateProvider");
   }
   return context;
 };

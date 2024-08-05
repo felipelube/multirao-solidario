@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import { Event } from "../../services/EventsService";
 import { PageContent } from "../PageContainer";
-import { useMapContext } from "../providers/MapProvider";
+import { useUIState } from "../providers/MapProvider";
 import { useEffect, useState } from "react";
 import { Button } from "../Button";
 import {
@@ -16,7 +16,7 @@ import { ROUTES } from "../../config/routes";
 type HomePageProps = {} & React.HTMLAttributes<HTMLDivElement>;
 
 export function EventPage({ ...props }: HomePageProps) {
-  const { setCenter } = useMapContext();
+  const { setMapCenter: setCenter } = useUIState();
   const { userInfo } = useAuth();
   const [isMutating, setIsMutating] = useState(false);
 

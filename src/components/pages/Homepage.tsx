@@ -3,15 +3,17 @@ import { EventListing } from "../EventListing";
 import { Event } from "../../services/EventsService";
 import { PageContent } from "../PageContainer";
 import { useEffect } from "react";
-import { useMapContext } from "../providers/MapProvider";
+import { useUIState } from "../providers/MapProvider";
 import { Helmet } from "react-helmet";
+import { useAuth } from "../providers/AuthProvider";
 
 type HomePageProps = {} & React.HTMLAttributes<HTMLDivElement>;
 
 export function HomePage({ ...props }: HomePageProps) {
   const events = ((useLoaderData() ?? []) as Event[]) ?? undefined;
   const [firstEvent] = events ?? [];
-  const { setCenter } = useMapContext();
+  const { setMapCenter: setCenter } = useUIState();
+  const { isSignedIn } = useAuth();
 
   useEffect(() => {
     if (firstEvent.latitude && firstEvent.longitude) {
@@ -20,7 +22,7 @@ export function HomePage({ ...props }: HomePageProps) {
   }, [firstEvent, setCenter]);
 
   return (
-    <PageContent>
+    <PageContent fixedHeight={!isSignedIn}>
       <Helmet>
         <title>Mutirão solidário - Início</title>
       </Helmet>

@@ -25,7 +25,7 @@ export function Component({ ...props }: SignUpPageProps) {
         <title>Mutirão solidário - Registrar</title>
       </Helmet>
       {token ? (
-        <PageContent {...props}>
+        <PageContent {...props} fixedHeight>
           <h1 className="text-3xl font-bold text-center">Registro concluído</h1>
           <CheckCircle className="w-24 mx-auto text-green-500" />
           <Button
@@ -43,7 +43,7 @@ export function Component({ ...props }: SignUpPageProps) {
           method="post"
           className="flex flex-col gap-4"
         >
-          <PageContent {...props}>
+          <PageContent {...props} fixedHeight>
             <h1 className="text-3xl font-bold text-center">
               Registre sua conta
             </h1>

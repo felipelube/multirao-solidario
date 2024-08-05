@@ -6,10 +6,9 @@ import {
   ZoomControl,
 } from "react-leaflet";
 import { Event } from "../services/EventsService";
-import { useMapContext } from "./providers/MapProvider";
+import { useUIState } from "./providers/MapProvider";
 import { Icon } from "leaflet";
 import { ROUTES } from "../config/routes";
-import { useRoutes } from "react-router-dom";
 
 type MapProps = {
   events: Event[];
@@ -24,7 +23,7 @@ const eventIcon = new Icon({
 });
 
 export function Map({ events, mapProps, ...props }: MapProps) {
-  const { center } = useMapContext();
+  const { mapCenter: center } = useUIState();
 
   return (
     <div {...props} className={`${props.className} h-screen w-screen`} id="map">

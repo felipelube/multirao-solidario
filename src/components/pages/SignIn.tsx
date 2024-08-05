@@ -43,7 +43,7 @@ export function Component({ ...props }: SignInPageProps) {
           method="post"
           className="flex flex-col gap-4"
         >
-          <PageContent {...props}>
+          <PageContent {...props} fixedHeight>
             <h1 className="text-3xl font-bold text-center">Entrar</h1>
             {Array.isArray(apiError?.errors) && (
               <div className="p-4 bg-red-100 border-red-500 rounded-lg">

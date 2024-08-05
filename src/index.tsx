@@ -18,7 +18,7 @@ import { EventService } from "./services/EventsService";
 import AuthErrorBoundary from "./components/AuthErrorBoundary";
 import { AuthProvider } from "./components/providers/AuthProvider";
 import { EventPage } from "./components/pages/EventPage";
-import { MapProvider } from "./components/providers/MapProvider";
+import { UIStateProvider } from "./components/providers/MapProvider";
 import { RegistrationService } from "./services/RegistrationService";
 
 const MutiraoSolidarioApp = () => {
@@ -85,12 +85,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <LocationProvider>
     <AuthProvider>
-      <MapProvider>
+      <UIStateProvider>
         <Helmet>
           <title>Mutirão Solidário</title>
         </Helmet>
         <MutiraoSolidarioApp />
-      </MapProvider>
+      </UIStateProvider>
     </AuthProvider>
   </LocationProvider>
 );
